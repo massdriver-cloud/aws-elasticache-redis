@@ -10,7 +10,7 @@ locals {
 }
 
 module "engine_cpu_utilization_alarm" {
-  source = "../../../provisioners/terraform/modules/aws-cloudwatch-alarm"
+  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=54da4ef"
   count  = local.member_clusters_count
 
   depends_on = [
@@ -36,7 +36,7 @@ module "engine_cpu_utilization_alarm" {
 }
 
 module "cpu_utilization_alarm" {
-  source = "../../../provisioners/terraform/modules/aws-cloudwatch-alarm"
+  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=54da4ef"
   count  = local.member_clusters_count
 
   depends_on = [
@@ -62,7 +62,7 @@ module "cpu_utilization_alarm" {
 }
 
 module "memory_usage_alarm" {
-  source = "../../../provisioners/terraform/modules/aws-cloudwatch-alarm"
+  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=54da4ef"
   count  = local.member_clusters_count
 
   depends_on = [
