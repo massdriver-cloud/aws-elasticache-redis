@@ -34,7 +34,7 @@ module "engine_cpu_utilization_alarm" {
 }
 
 module "cpu_utilization_alarm" {
-  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=b91993f"
+  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=3ec7921"
   count  = local.member_clusters_count
 
   depends_on = [
