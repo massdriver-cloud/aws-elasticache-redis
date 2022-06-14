@@ -9,10 +9,16 @@ locals {
   memory_usage_threshold           = "90"
 }
 
-module "engine_cpu_utilization_alarm" {
-  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=3ec7921"
-  count  = local.member_clusters_count
+module "alarm_channel" {
+  source      = "github.com/massdriver-cloud/terraform-modules//aws-alarm-channel?ref=aa08797"
+  md_metadata = var.md_metadata
+}
 
+
+module "engine_cpu_utilization_alarm" {
+  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=aa08797"
+  count         = local.member_clusters_count
+  sns_topic_arn = module.alarm_channel.arn
   depends_on = [
     aws_elasticache_replication_group.main
   ]
@@ -34,9 +40,9 @@ module "engine_cpu_utilization_alarm" {
 }
 
 module "cpu_utilization_alarm" {
-  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=3ec7921"
-  count  = local.member_clusters_count
-
+  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=aa08797"
+  count         = local.member_clusters_count
+  sns_topic_arn = module.alarm_channel.arn
   depends_on = [
     aws_elasticache_replication_group.main
   ]
@@ -58,9 +64,9 @@ module "cpu_utilization_alarm" {
 }
 
 module "memory_usage_alarm" {
-  source = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=3ec7921"
-  count  = local.member_clusters_count
-
+  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=aa08797"
+  count         = local.member_clusters_count
+  sns_topic_arn = module.alarm_channel.arn
   depends_on = [
     aws_elasticache_replication_group.main
   ]
