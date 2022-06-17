@@ -16,7 +16,7 @@ module "alarm_channel" {
 
 
 module "engine_cpu_utilization_alarm" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=aa08797"
+  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=8997456"
   count         = local.member_clusters_count
   sns_topic_arn = module.alarm_channel.arn
   depends_on = [
@@ -24,6 +24,7 @@ module "engine_cpu_utilization_alarm" {
   ]
 
   md_metadata         = var.md_metadata
+  display_name        = "Engine CPU Utilization"
   message             = "Elasticache Redis ${element(local.member_clusters_list, count.index)}: Redis Engine CPU Utilization > ${local.engine_cpu_utilization_threshold}"
   alarm_name          = "${element(local.member_clusters_list, count.index)}-highEngineCPUUtilization"
   comparison_operator = "GreaterThanThreshold"
@@ -40,7 +41,7 @@ module "engine_cpu_utilization_alarm" {
 }
 
 module "cpu_utilization_alarm" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=aa08797"
+  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=8997456"
   count         = local.member_clusters_count
   sns_topic_arn = module.alarm_channel.arn
   depends_on = [
@@ -48,6 +49,7 @@ module "cpu_utilization_alarm" {
   ]
 
   md_metadata         = var.md_metadata
+  display_name        = "Instance CPU Utilization"
   message             = "Elasticache Redis ${element(local.member_clusters_list, count.index)}: Instance CPU Utilization > ${local.cpu_utilization_threshold}"
   alarm_name          = "${element(local.member_clusters_list, count.index)}-highCPUUtilization"
   comparison_operator = "GreaterThanThreshold"
@@ -64,7 +66,7 @@ module "cpu_utilization_alarm" {
 }
 
 module "memory_usage_alarm" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=aa08797"
+  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=8997456"
   count         = local.member_clusters_count
   sns_topic_arn = module.alarm_channel.arn
   depends_on = [
@@ -72,6 +74,7 @@ module "memory_usage_alarm" {
   ]
 
   md_metadata         = var.md_metadata
+  display_name        = "Memory Usage"
   message             = "Elasticache Redis ${element(local.member_clusters_list, count.index)}: Memory Usage > ${local.memory_usage_threshold}"
   alarm_name          = "${element(local.member_clusters_list, count.index)}-highMemoryUsage"
   comparison_operator = "GreaterThanThreshold"
