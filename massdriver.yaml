@@ -99,11 +99,12 @@ params:
       title: Secure cluster with an auth token and TLS encryption
       description: "Secure cluster with an auth token and TLS encryption (Required for most security compliance audits eg. HIPAA). NOTE: Changing this will recreate the cluster."
       default: true
-    allow_vpc_access:
-      title: Allow VPC Access
-      description: Allow the entire VPC to access the Redis instance.
-      type: boolean
-      default: true
+    subnet_type:
+      title: Subnet Type
+      description: Deploy Redis to internal subnets (cannot reach the internet) or private subnets (internet egress traffic allowed)
+      type: string
+      enum: [internal, private]
+      default: internal
 
 connections:
   required:
@@ -130,7 +131,7 @@ ui:
     - cluster_mode_enabled
     - node_groups
     - secure
-    - allow_vpc_access
+    - subnet_type
     - "*"
   node_groups:
     condition: cluster_mode_enabled=true

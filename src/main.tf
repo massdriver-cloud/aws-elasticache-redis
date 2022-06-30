@@ -14,6 +14,11 @@ locals {
     "5.0" = "5.0.6"
     "6.x" = "6.x"
   }
+
+  subnet_ids = {
+    "internal" = [for subnet in var.vpc.data.infrastructure.internal_subnets : element(split("/", subnet["arn"]), 1)]
+    "private" = [for subnet in var.vpc.data.infrastructure.private_subnets : element(split("/", subnet["arn"]), 1)]
+  }
 }
 
 
@@ -26,7 +31,7 @@ resource "aws_security_group" "main" {
 resource "aws_elasticache_subnet_group" "main" {
   name        = var.md_metadata.name_prefix
   description = "For Elasticache cluster ${var.md_metadata.name_prefix}"
-  subnet_ids  = [for subnet in var.vpc.data.infrastructure.private_subnets : element(split("/", subnet["arn"]), 1)]
+  subnet_ids  = local.subnet_ids[var.subnet_type]
 }
 
 resource "random_password" "auth" {
@@ -71,9 +76,8 @@ resource "aws_elasticache_replication_group" "main" {
   parameter_group_name = "${local.version_to_parameter_group[var.redis_version]}${var.cluster_mode_enabled ? ".cluster.on" : ""}"
 }
 
-# TODO: Remove this once we have application bundles working.
 resource "aws_security_group_rule" "vpc_ingress" {
-  count = var.allow_vpc_access ? 1 : 0
+  count = 1
 
   description = "From allowed CIDRs"
 
