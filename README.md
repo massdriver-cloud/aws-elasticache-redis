@@ -51,7 +51,6 @@ Security and compliance scanning of our bundles is performed using [Bridgecrew](
 | [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-elasticache-redis/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-elasticache-redis&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
 | [![ISO27001](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-elasticache-redis/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-elasticache-redis&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
 | [![SOC2](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-elasticache-redis/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-elasticache-redis&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-elasticache-redis/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-elasticache-redis&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
 | [![HIPAA](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/aws-elasticache-redis/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Faws-elasticache-redis&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
 
 <!-- COMPLIANCE:END -->
