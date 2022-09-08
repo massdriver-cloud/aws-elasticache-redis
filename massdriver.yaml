@@ -1,7 +1,7 @@
 schema: draft-07
 name: aws-elasticache-redis
 description: "Amazon ElastiCache for Redis is a blazing fast in-memory data store that provides sub-millisecond latency to power internet-scale real-time applications."
-ref: github.com/massdriver-cloud/aws-elasticache-redis
+source_url: github.com/massdriver-cloud/aws-elasticache-redis
 access: "public"
 type: bundle
 
