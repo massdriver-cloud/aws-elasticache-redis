@@ -5,10 +5,6 @@ source_url: github.com/massdriver-cloud/aws-elasticache-redis
 access: "public"
 type: bundle
 
-steps:
-  - path: src
-    provisioner: terraform
-
 params:
   default: {}
   examples:
@@ -39,6 +35,9 @@ params:
     - node_type
     - replicas
     - cluster_mode_enabled
+    - node_groups
+    - secure
+    - cluster_type
   properties:
     redis_version:
       type: string
