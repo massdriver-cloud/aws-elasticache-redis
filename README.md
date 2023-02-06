@@ -56,12 +56,12 @@ Form input parameters for configuring a bundle for deployment.
 <!-- PARAMS:START -->
 ## Properties
 
-- **`cluster_mode_enabled`** *(boolean)*: Cluster mode allows you to scale your cluster horizontally across multiple node groups. This is useful at massive scale (beyond limits of vertical scaling). NOTE: Changing this will recreate the cluster. Default: `False`.
+- **`cluster_mode_enabled`** *(boolean)*: Cluster mode allows you to scale your cluster horizontally across multiple node groups. This is useful at massive scale (beyond limits of vertical scaling). NOTE: this setting cannot be changed after cluster creation. Default: `False`.
 - **`node_groups`** *(integer)*: Number of node groups (shards) in the cluster. Each node group will have a primary node and the number of read replicas specified above. Minimum: `2`. Maximum: `250`. Default: `2`.
 - **`node_type`** *(string)*: AWS node type to use for the cluster. Must be one of: `['cache.m5.large', 'cache.m5.xlarge', 'cache.m5.2xlarge', 'cache.m5.4xlarge', 'cache.m5.12xlarge', 'cache.m5.24xlarge', 'cache.r5.large', 'cache.r5.xlarge', 'cache.r5.2xlarge', 'cache.r5.4xlarge', 'cache.r5.12xlarge', 'cache.r5.24xlarge', 'cache.t3.micro', 'cache.t3.small', 'cache.t3.medium']`.
 - **`redis_version`** *(string)*: Major Redis version to use. Must be one of: `['3.2', '4.0', '5.0', '6.x']`. Default: `6.x`.
 - **`replicas`** *(integer)*: Number of read replicas per node group. Each node group will have a single primary instace, and 0 to 5 read replicas. If you would like automatic fail-over for high-availability, you need at least 1 replica. Must be one of: `[0, 1, 2, 3, 4, 5]`. Default: `0`.
-- **`secure`** *(boolean)*: Secure cluster with an auth token and TLS encryption (Required for most security compliance audits eg. HIPAA). NOTE: Changing this will recreate the cluster. Default: `True`.
+- **`secure`** *(boolean)*: Enabling this will auto-generate an auth token (password) and enable TLS encrypted client connections. NOTE: this setting cannot be changed after cluster creation. Default: `True`.
 - **`subnet_type`** *(string)*: Deploy Redis to internal subnets (cannot reach the internet) or private subnets (internet egress traffic allowed). Must be one of: `['internal', 'private']`. Default: `internal`.
 ## Examples
 
@@ -139,11 +139,6 @@ Connections from other bundles that this bundle depends on.
         "us-west-2"
         ```
 
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: AWS Availability Zone.
-
-        Examples:
 - **`vpc`** *(object)*: . Cannot contain additional properties.
   - **`data`** *(object)*
     - **`infrastructure`** *(object)*
@@ -265,11 +260,6 @@ Connections from other bundles that this bundle depends on.
         "us-west-2"
         ```
 
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: AWS Availability Zone.
-
-        Examples:
 <!-- CONNECTIONS:END -->
 
 </details>
@@ -357,6 +347,18 @@ Resources created by this bundle that can be connected to other bundles.
                 "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
                 ```
 
+          - **`identity`** *(object)*: For instances where IAM policies must be attached to a role attached to an AWS resource, for instance AWS Eventbridge to Firehose, this attribute should be used to allow the downstream to attach it's policies (Firehose) directly to the IAM role created by the upstream (Eventbridge). It is important to remember that connections in massdriver are one way, this scheme perserves the dependency relationship while allowing bundles to control the lifecycles of resources under it's management. Cannot contain additional properties.
+            - **`role_arn`** *(string)*: ARN for this resources IAM Role.
+
+              Examples:
+              ```json
+              "arn:aws:rds::ACCOUNT_NUMBER:db/prod"
+              ```
+
+              ```json
+              "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
+              ```
+
           - **`network`** *(object)*: AWS security group rules to inform downstream services of ports to open for communication. Cannot contain additional properties.
             - **`^[a-z-]+$`** *(object)*
               - **`arn`** *(string)*: Amazon Resource Name.
@@ -397,7 +399,7 @@ Resources created by this bundle that can be connected to other bundles.
 
         - Security*object*: Azure Security Configuration. Cannot contain additional properties.
           - **`iam`** *(object)*: IAM Roles And Scopes. Cannot contain additional properties.
-            - **`^[a-z/-]+$`** *(object)*
+            - **`^[a-z]+[a-z_]*[a-z]$`** *(object)*
               - **`role`**: Azure Role.
 
                 Examples:
