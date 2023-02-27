@@ -10,13 +10,12 @@ locals {
 }
 
 module "alarm_channel" {
-  source      = "github.com/massdriver-cloud/terraform-modules//aws-alarm-channel?ref=aa08797"
+  source      = "github.com/massdriver-cloud/terraform-modules//aws/alarm-channel?ref=343d3e4"
   md_metadata = var.md_metadata
 }
 
-
 module "engine_cpu_utilization_alarm" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=8997456"
+  source        = "github.com/massdriver-cloud/terraform-modules//aws/cloudwatch-alarm?ref=343d3e4"
   count         = local.member_clusters_count
   sns_topic_arn = module.alarm_channel.arn
   depends_on = [
@@ -41,7 +40,7 @@ module "engine_cpu_utilization_alarm" {
 }
 
 module "cpu_utilization_alarm" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=8997456"
+  source        = "github.com/massdriver-cloud/terraform-modules//aws/cloudwatch-alarm?ref=343d3e4"
   count         = local.member_clusters_count
   sns_topic_arn = module.alarm_channel.arn
   depends_on = [
@@ -66,7 +65,7 @@ module "cpu_utilization_alarm" {
 }
 
 module "memory_usage_alarm" {
-  source        = "github.com/massdriver-cloud/terraform-modules//aws-cloudwatch-alarm?ref=8997456"
+  source        = "github.com/massdriver-cloud/terraform-modules//aws/cloudwatch-alarm?ref=343d3e4"
   count         = local.member_clusters_count
   sns_topic_arn = module.alarm_channel.arn
   depends_on = [
