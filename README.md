@@ -17,7 +17,7 @@ Amazon ElastiCache for Redis is a blazing fast in-memory data store that provide
 
 ## Design
 
-For detailed information, check out our [Operator Guide](operator.mdx) for this bundle.
+For detailed information, check out our [Operator Guide](operator.md) for this bundle.
 
 ## Usage
 
@@ -160,20 +160,6 @@ Connections from other bundles that this bundle depends on.
             "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
             ```
 
-          - **`aws_zone`** *(string)*: AWS Availability Zone.
-
-            Examples:
-          - **`cidr`** *(string)*
-
-            Examples:
-            ```json
-            "10.100.0.0/16"
-            ```
-
-            ```json
-            "192.24.12.0/22"
-            ```
-
 
           Examples:
       - **`private_subnets`** *(array)*
@@ -189,20 +175,6 @@ Connections from other bundles that this bundle depends on.
             "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
             ```
 
-          - **`aws_zone`** *(string)*: AWS Availability Zone.
-
-            Examples:
-          - **`cidr`** *(string)*
-
-            Examples:
-            ```json
-            "10.100.0.0/16"
-            ```
-
-            ```json
-            "192.24.12.0/22"
-            ```
-
 
           Examples:
       - **`public_subnets`** *(array)*
@@ -216,20 +188,6 @@ Connections from other bundles that this bundle depends on.
 
             ```json
             "arn:aws:ec2::ACCOUNT_NUMBER:vpc/vpc-foo"
-            ```
-
-          - **`aws_zone`** *(string)*: AWS Availability Zone.
-
-            Examples:
-          - **`cidr`** *(string)*
-
-            Examples:
-            ```json
-            "10.100.0.0/16"
-            ```
-
-            ```json
-            "192.24.12.0/22"
             ```
 
 
