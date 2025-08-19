@@ -3,7 +3,6 @@ name: aws-elasticache-redis
 version: 1.0.0
 description: Amazon ElastiCache for Redis is a blazing fast in-memory data store that provides sub-millisecond latency to power internet-scale real-time applications.
 source_url: https://github.com/massdriver-cloud/aws-elasticache-redis
-type: application
 steps:
 - path: src
   provisioner: opentofu
