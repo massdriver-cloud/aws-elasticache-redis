@@ -29,8 +29,7 @@ locals {
 }
 
 resource "massdriver_artifact" "authentication" {
-  field                = "authentication"
-  provider_resource_id = aws_elasticache_replication_group.main.arn
-  name                 = "${var.md_metadata.name_prefix}: Elasticache Redis"
-  artifact             = jsonencode(local.artifact_authentication)
+  field    = "authentication"
+  name     = "${var.md_metadata.name_prefix}: Elasticache Redis"
+  artifact = jsonencode(local.artifact_authentication)
 }
