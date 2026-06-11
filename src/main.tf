@@ -16,8 +16,8 @@ locals {
   }
 
   subnet_ids = {
-    "internal" = [for subnet in var.vpc.data.infrastructure.internal_subnets : element(split("/", subnet["arn"]), 1)]
-    "private" = [for subnet in var.vpc.data.infrastructure.private_subnets : element(split("/", subnet["arn"]), 1)]
+    "internal" = [for subnet in var.vpc.infrastructure.internal_subnets : element(split("/", subnet["arn"]), 1)]
+    "private" = [for subnet in var.vpc.infrastructure.private_subnets : element(split("/", subnet["arn"]), 1)]
   }
 }
 
@@ -25,7 +25,7 @@ locals {
 resource "aws_security_group" "main" {
   name_prefix = "${var.md_metadata.name_prefix}-"
   description = "For Elasticache cluster ${var.md_metadata.name_prefix}"
-  vpc_id      = element(split("/", var.vpc.data.infrastructure.arn), 1)
+  vpc_id      = element(split("/", var.vpc.infrastructure.arn), 1)
 }
 
 resource "aws_elasticache_subnet_group" "main" {
@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "vpc_ingress" {
   from_port   = element(concat(aws_elasticache_replication_group.main.*.port, [""]), 0)
   to_port     = element(concat(aws_elasticache_replication_group.main.*.port, [""]), 0)
   protocol    = "tcp"
-  cidr_blocks = [var.vpc.data.infrastructure.cidr]
+  cidr_blocks = [var.vpc.infrastructure.cidr]
 
   security_group_id = aws_security_group.main.id
 }
